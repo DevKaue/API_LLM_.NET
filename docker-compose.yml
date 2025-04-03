@@ -1,0 +1,26 @@
+﻿version: '3.4'
+
+services:
+  llmapi:
+    image: llmapi
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:80"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=CarrosDb
+      - POSTGRES_PORT=5432
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: CarrosDb
+    ports:
+      - "5432:5432"
